@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Oswald:wght@300;395;400;500;600;700&family=Quicksand:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Oswald', sans-serif;
+            font-family: 'Quicksand', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="display-4 mb-3">Best Practices in JavaScript:</h1>
+        <div class="mb-5">
+            <p class="fs-4 m-0">Using strict mode is a best practice:</p>
+            <small class="text-muted">Example:</small>
+            <pre class="bg-light p-2 rounded-3 shadow-sm">
+use strict;</pre>
+        </div>
+
+        <div class="mb-5">
+            <p class="fs-4 m-0">Use <code>const</code> instead of <code>var</code> for constants:</p>
+            <small class="text-muted">Example:</small>
+            <pre class="bg-light p-2 rounded-3 shadow-sm">
+const obj = new Object(); // bad
+const object = {}; // good</pre>
+        </div>
+
+        <div class="mb-5">
+            <p class="fs-4 m-0">Use <code>let</code> instead of <code>var</code> for non-global variables:</p>
+            <small class="text-muted">Example:</small>
+            <pre class="bg-light p-2 rounded-3 shadow-sm">
+var count = 0; // bad
+while (count < 10) {
+  console.log("something");
+  count++;
+}
+let myCount = 0; // good
+while (myCount < 10) {
+  console.log("something else");
+  myCount++;
+}</pre>
+        </div>
+
+        <div class="mb-5">
+            <p class="fs-4 m-0">Use <code>{}</code> instead of constructor to creat a new object:</p>
+            <small class="text-muted">Example:</small>
+            <pre class="bg-light p-2 rounded-3 shadow-sm">
+const obj = new Object(); // bad
+const object = {}; // good</pre>
+        </div>
+
+        <div class="mb-5">
+            <p class="fs-4 m-0">Use <code>[]</code> instead of <code>new Array()</code> to creat an array:</p>
+            <small class="text-muted">Example:</small>
+            <pre class="bg-light p-2 rounded-3 shadow-sm">
+const array = new Array(); // bad
+const myArray = []; // good</pre>
+        </div>
+
+        <div class="mb-5">
+            <p class="fs-4 m-0">
+                Istead of using <code>functionName: function()</code>,
+                its better to use <code>functionName()</code> in objects:
+            </p>
+            <small class="text-muted">Example:</small>
+            <pre class="bg-light p-2 rounded-3 shadow-sm">
+const secondObj = {
+  name: "x",
+  getName: function () { // bad
+    return this.name;
+  },
+};
+const thirdObj = {
+  name: "y",
+  getName() { // good
+    return this.name;
+  },
+};</pre>
+        </div>
+
+        <div class="mb-5">
+            <p class="fs-4 m-0">Place all shorthan at the first:</p>
+            <small class="text-muted">Example:</small>
+            <pre class="bg-light p-2 rounded-3 shadow-sm">
+const date = new Date();
+const sixthObj = {
+  name: "x",
+  date, // bad
+};
+const seventhObj = {
+  date, // good
+  name: "y",
+};</pre>
+        </div>
+
+        <div class="mb-5">
+            <p class="fs-4 m-0">Use spreads (<code>...</code>) before an array name instead of iterate on the array:</p>
+            <small class="text-muted">Example (Assume we want to copy an array):</small>
+            <pre class="bg-light p-2 rounded-3 shadow-sm">
+const originalArray = [4, 6, 87, 9, 321];
+let copyArray = [];
+let lengthOfArray = originalArray.length;
+for (let i = 0; i < lengthOfArray; i++) {
+  copyArray[i] = originalArray[i]; // bad
+}
+let secondCopyArray = [...originalArray]; // good</pre>
+        </div>
+
+        <div class="mb-5">
+            <p class="fs-4 m-0">To creat an itrable object:</p>
+            <small class="text-muted">Example:</small>
+            <pre class="bg-light p-2 rounded-3 shadow-sm">
+let itrableObject = {
+  from: 1,
+  to: 10,
+  [Symbol.iterator]() {
+    this.currentNumber = this.from;
+    return this;
+  },
+  next() {
+    if (this.currentNumber <= this.to) {
+      return {
+        done: false,
+        value: this.currentNumber++,
+      };
+    } else {
+      return {
+        done: true,
+      };
+    }
+  },
+};</pre>
+        </div>
+
+
+        <div class="mb-5">
+            <p class="fs-4 m-0">To convert an itrable object to an array, use spreads (<code>...</code>)
+                rather than <code>Array.from(arrayName)</code></p>
+            <small class="text-muted">Example:</small>
+            <pre class="bg-light p-2 rounded-3 shadow-sm">
+const nodes = Array.from(itrableObject); // good
+const secondNodes = [...itrableObject]; // better</pre>
+        </div>
+
+        <div class="mb-5">
+            <p class="fs-4 m-0">to concat a variable with a string, use template string instead of <code>+</code> sign.
+            </p>
+            <small class="text-muted">Example:</small>
+            <pre class="bg-light p-2 rounded-3 shadow-sm">
+const myName = "Amir";
+function sayHi1 (name) {
+  return "Hi " + name; // bad
+} 
+function sayHi2 (name) {
+  return ["Hi", name].join(); // bad
+}
+function sayHi3 (name) {
+  return `Hi ${name}`; // good (template string)
+}</pre>
+        </div>
+
+
+        <div class="mb-5">
+            <p class="fs-4 m-0">If the body of function is different in porportion to the stuation,
+                it is better to define a variable and assign the function to the variable.</p>
+            <small class="text-muted">Example:</small>
+            <pre class="bg-light p-2 rounded-3 shadow-sm">
+// Bad Practice
+let isSunny = true;
+if (isSunny) {
+  function print() {
+    console.log("It is sunny!");
+  }
+} else {
+  function print() {
+    console.log("It ism't sunny!");
+  }
+}
+
+// Good Practice
+let print;
+if (isSunny) {
+  print = () => {
+    return "It is sunny!";
+  };
+} else {
+  print = () => {
+    return "It isn't sunny!";
+  };
+}</pre>
+        </div>
+
+
+        <div class="mb-5">
+            <p class="fs-4 m-0"><code>arguments</code> is a object that javascript consider for all functions,
+                Therefore, Never name a parameter, <code>arguments</code>. Becuses if you name a parameter
+                <code>arguments</code>,
+                you are overrding the object of <code>arguments</code> that javascript has considered for your function.
+            </p>
+            <small class="text-muted">Example:</small>
+            <pre class="bg-light p-2 rounded-3 shadow-sm">
+function myFunction() {
+  console.log(arguments); // retuern the object of arguments
+}</pre>
+        </div>
+
+        <div class="mb-5">
+            <p class="fs-4 m-0">Never directly change the input of function (parameters) in the function.
+                If you needed to change any parameter, it is better to define a <code>let</code> variable
+                and asign the parameter to the variable.
+            </p>
+            <small class="text-muted">Example:</small>
+            <pre class="bg-light p-2 rounded-3 shadow-sm">
+function newFunc(input) {
+  input = input || 1; // bad
+  console.log(input);
+}
+function newFunction(input) {
+  let localInput = input; // good
+  localInput++;
+  console.log(input);
+}</pre>
+        </div>
+
+
+        <div class="mb-5">
+            <p class="fs-4 m-0">It is better to set the defualt to the argument in the parameter instead of body of
+                the function.
+            </p>
+            <small class="text-muted">Example:</small>
+            <pre class="bg-light p-2 rounded-3 shadow-sm">
+function anotherFunc(input = 1) { // good
+  console.log(input);
+}</pre>
+        </div>
+
+
+        <div class="mb-5">
+            <p class="fs-4 m-0">Don't use quotation marks for properties of objects if possible
+            </p>
+        </div>
+
+        <div class="mb-5">
+            <p class="fs-4 m-0">Never place the optional input of functions (parameter) at first, thay should be at the
+                end.
+            </p>
+        </div>
+
+        <div class="mb-5">
+            <p class="fs-4 m-0">It is better to access to properties of an object by dot <code>.</code> rather than
+                <code>[]</code>.
+            </p>
+        </div>
+
+        <div class="mb-5">
+            <p class="fs-4 m-0">It is better to use <code>**</code> opration rather than <code>Math.pow()</code>
+                function. (if the brower
+                supports)
+            </p>
+        </div>
+        <div class="mb-5">
+            <p class="fs-4 m-0">To have clean code, it is better to difine and declear any variable or constants in a
+                line.
+            </p>
+        </div>
+        <div class="mb-5">
+            <p class="fs-4 m-0">It is better first define a constants and then other variables.
+            </p>
+        </div>
+        <div class="mb-5">
+            <p class="fs-4 m-0">Don't use multu-assign variable (expecially for <code>let</code>)
+            </p>
+        </div>
+        <div class="mb-5">
+            <p class="fs-4 m-0">You can use <code>!</code> or <code>!!</code> to convert a non-boolean variable to a
+                <code>boolean</code> value.
+            </p>
+        </div>
+        <div class="mb-5">
+            <p class="fs-4 m-0">Always use <code>{}</code> for function, even the function has only one statement in its
+                body.
+            </p>
+        </div>
+        <div class="mb-5">
+            <p class="fs-4 m-0">To cast anything to string, it is better to use <code>String(anything)</code> without
+            <code>new</code>.
+            </p>
+        </div>
+        <div class="mb-5">
+            <p class="fs-4 m-0">To cast anything to number, it is better to use <code>number(anything)</code> without
+                <code>new</code> or
+                using <code>parseInt(anything, 10);</code>
+            </p>
+        </div>
+    </div>
+
+
+    <script src="./javascript.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
